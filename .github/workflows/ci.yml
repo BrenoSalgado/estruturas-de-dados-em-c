@@ -12,21 +12,21 @@ jobs:
       matrix:
         cc: [gcc, clang]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: make test CC=${{ matrix.cc }}
 
   sanitizers:
     name: AddressSanitizer + UBSan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: make test CC=clang CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all"
 
   valgrind:
     name: Valgrind (vazamentos de memória)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: sudo apt-get update && sudo apt-get install -y valgrind
       - run: make all CFLAGS="-std=c11 -Wall -Wextra -Wpedantic -Werror -O0 -g"
       - run: |
